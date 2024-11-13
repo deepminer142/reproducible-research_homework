@@ -1,5 +1,3 @@
-set.seed(626)  # Set seed using number suitable for any kind of random number seed
-
 plot1 <- ggplot(aes(x = x, y = y), data = data1) +
   
   geom_path(aes(colour = time)) +
