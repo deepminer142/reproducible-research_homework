@@ -46,14 +46,22 @@ https://github.com/deepminer142/logistic_growth/tree/main
 - To testing the allometric relationship between virion volume and genome length I need to transform to log scale (log-log transformation).
 - This coverts non-linear relationship into a linear one and so you can fit a linear regression model.
 
-*Coefficients*
-| Term              | Estimate | Std. Error | t value | Pr(>|t|) |
-|-------------------|----------|------------|---------|----------|
-| (Intercept)       | 7.0748   | 0.7693     | 9.196   | 2.28e-10 |
-| genome_length_log | 1.5152   | 0.1725     | 8.784   | 6.44e-10 |
-
-![My Image Description](.png)
+![Original data from (Cui et al 2014)](virion_volume_vs_genome_length.png)
+![Transformed data from (Cui et al 2014) fitted with a regression line](log_transformed_virion_volume_vs_genome_length_with_regression.png)
 
 ### c. 
+- Intercept = 7.0748
+- Scaling factor (alpha) = exp(7.0748) = **1181.807 (95% CI)**
+- Exponent (Slope) (β) = **1.5152 (95% CI)**
+- This means volume increases by the 1.5152 power of length.
+- Allometric relationship can be expressed as Virion Volume = 1181.807 × (Genome Length)<sup>1.5152</sup>
+- The p-value for the intercept (7.0748) = 2.28×10<sup>-10</sup>
+- The p-value for the genome length coefficient = 2.28×10<sup>-10</sup>
+- 2.28×10<sup>-10</sup> and 2.28×10<sup>-10</sup> are below significance level (0.05)
+- Therefore, these **coefficients are statistically significant**.
+- The exponent in paper = 1.52 (1.16-1.87) (95% CI)
+- Scaling factor in paper = 1,182 (246–5,675) (95% CI)
+- I have the **same values** for both the exponent and scaling factor
+
 ### d.
 ### e.
