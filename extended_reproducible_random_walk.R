@@ -1,58 +1,41 @@
-# Step 1: Load libraries
-library(ggplot2)
-library(dplyr)
-library(TidyDensity)
+# Step 1: Load Libraries
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+  library(TidyDensity)
+})
 
-# Step 2: Set Seed
-set.seed(623)
+# Step 2: Set a Seed for Reproducibility
+set.seed(1000)
 
-# Step 3: Generate random walks with different distributions
-df <- rbind(
-  tidy_uniform(.num_sims = 25, .n = 50, .min = -1, .max = 1) |>
-    tidy_random_walk(.value_type = "cum_sum") |>
+# Step 3: Generate Random Walks for Different Distributions
+df <- bind_rows(
+  tidy_uniform(.num_sims = 25, .n = 50, .min = -1, .max = 1) %>%
+    tidy_random_walk(.value_type = "cum_sum") %>%
     mutate(type = "Uniform"),
   
-  tidy_exponential(.num_sims = 25, .n = 50, .rate = 1) |>
-    tidy_random_walk(.value_type = "cum_sum") |>
+  tidy_exponential(.num_sims = 25, .n = 50, .rate = 1) %>%
+    tidy_random_walk(.value_type = "cum_sum") %>%
     mutate(type = "Exponential"),
   
-  tidy_normal(.num_sims = 25, .n = 50, .mean = 0, .sd = 1) |>
-    tidy_random_walk(.value_type = "cum_sum") |>
+  tidy_normal(.num_sims = 25, .n = 50, .mean = 0, .sd = 1) %>%
+    tidy_random_walk(.value_type = "cum_sum") %>%
     mutate(type = "Normal")
-) |>
-  select(sim_number, x, random_walk_value, type) |>
-  mutate(
-    low_ci = -1.96 * sqrt(x),
-    hi_ci = 1.96 * sqrt(x)
-  )
+) %>%
+  select(simulation = sim_number, step = x, value = random_walk_value, type)
 
-# Step 4: Extract attributes for the plot subtitle
-atb <- attributes(df)
-
-# Step 5: Plot 
-plot <- df |>
-  ggplot(aes(
-    x = x, 
-    y = random_walk_value, 
-    group = sim_number, 
-    color = factor(type))
-  ) +
-  geom_line(aes(alpha = 0.382)) +
-  geom_line(aes(y = low_ci, group = sim_number), 
-            linetype = "dashed", linewidth = 0.6, color = "black") +
-  geom_line(aes(y = hi_ci, group = sim_number), 
-            linetype = "dashed", linewidth = 0.6, color = "black") +
-  scale_color_manual(values = c("Uniform" = "blue", 
-                                "Exponential" = "green", 
-                                "Normal" = "purple")) +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  facet_wrap(~type) +
+# Step 4: Create the Plot Object
+plot <- ggplot(df, aes(x = step, y = value, color = type, group = interaction(type, simulation))) +
+  geom_line(alpha = 0.4) +
+  scale_color_manual(values = c("Uniform" = "#1f78b4", "Exponential" = "#33a02c", "Normal" = "#6a3d9a")) +
+  facet_wrap(~ type) +
   labs(
-    x = "Time",
-    y = "Value",
-    title = "Random Walk using Different Distributions"
-  )
+    title = "Random Walks with Different Distributions",
+    x = "Time Step",
+    y = "Random Walk Value"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "none")
 
-# Step 6: Save the plot to a PNG file
-ggsave("random_walk_distributions.png", plot = plot, width = 10, height = 6, dpi = 300)
+# Step 5: Save the Plot as a PNG File
+ggsave(filename = "random_walk_different_distributions.png", plot = plot, width = 10, height = 6, dpi = 300)
