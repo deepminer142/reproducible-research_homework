@@ -1,5 +1,6 @@
 # For Question 5, part d
 # Step 1: Load ggplot2 if not already loaded
+install.packages("ggplot2")
 library(ggplot2)
 
 # Step 2: Create a linear model with the log-transformed data
