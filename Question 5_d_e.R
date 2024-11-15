@@ -21,16 +21,3 @@ print(volume_length_comparison_plot)
 # Step 6: Save plot as PNG
 ggsave("volume_length_comparison.png", plot = volume_length_comparison_plot, width = 8, height = 6, dpi = 300)
 
-# For Question 5, part e
-# Step 1: Define the genome length
-genome_length_kb <- 300
-
-# Step 2: Log-transform 
-genome_length_log <- log(genome_length_kb)
-
-# Step 3: Use linear model to predict volume 
-log_virion_volume <- predict(virus_model, newdata = data.frame(genome_length_log = genome_length_log))
-
-# Step 4" Exponentiate to get the virion volume in the original scale
-estimated_virion_volume <- exp(log_virion_volume)
-estimated_virion_volume
