@@ -27,8 +27,6 @@ https://github.com/deepminer142/logistic_growth/tree/main
 - The walk's path show clusters then spreading. This pattern may be because short movements in random directions accumulate in certain areas, causing these local clusters.
 - This is expected observation for Brownian motion which is a continuous time stochastic process (Mörters and Peres, 2001)
 
-
-
 ### b. 
 - Random seed is used to initialize a pseudorandom number generator (Bethard 2022).
 - The number sequence completely determined by the seed.
@@ -38,7 +36,15 @@ https://github.com/deepminer142/logistic_growth/tree/main
 - This is essential to produce reprodicble research.
 
 ### c. 
+- To make a reproducible stimulation of Brownian motion I have set seed to 123
+- ![Reproducible stimulation](random_walk_comparison.png)
+- 
+- 
+
 ### d. 
+
+### Extended
+![Reproducible stimulation using different distributions](random_walk_distributions.png)
 
 ## Question 5
 ### a. 
