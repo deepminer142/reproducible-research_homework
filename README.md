@@ -90,7 +90,9 @@ https://github.com/deepminer142/reproducible-research_homework/blob/a2efb8a86e3b
 ![Replicated graph (Cui et al 2014)](volume_length_comparison.png)
 
 ### e.
-- Code to estimate volume of a 300 kb dsDNA virus 
+- Code to estimate volume of a 300 kb dsDNA virus
+https://github.com/deepminer142/reproducible-research_homework/blob/7e96550b4840271d1d77f93fee636f6ab7b45d49/Question%205_d_e.R#L24-L36
+
 
 ## References 
 1. Bethard, S. (2022) ‘We need to talk about random seeds  ’, IACAPAP ArXiv [Preprint]. doi:10.48550/arXiv.2210.13393.
