@@ -37,12 +37,3 @@ virus_model <- lm(virion_volume_log ~ genome_length_log, data = log_transform)
 
 # Step 7: View the summary of the model to check coefficients and significance
 summary(virus_model)
-
-# Step 8: Plot model with fitted regression line
-plot_with_regression <- plot_log_transformed +
-  geom_smooth(method = "lm", color = "blue") +
-  labs(title = "Log-Transformed Virion Volume vs Genome Length with Regression Line")
-
-print(plot_with_regression)
-ggsave("log_transformed_virion_volume_vs_genome_length_with_regression.png", plot = plot_with_regression, width = 8, height = 6)
-
