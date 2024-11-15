@@ -25,9 +25,12 @@ https://github.com/deepminer142/logistic_growth/tree/main
 - When you re-run the code no two graphs are the same because of the randomness of angle.
 - It is a stochastic process.
 - The walk's path show clusters then spreading. This pattern may be because short movements in random directions accumulate in certain areas, causing these local clusters.
+- This is expected observation for Brownian motion which is a continuous time stochastic process (Mörters and Peres, 2001)
+
+
 
 ### b. 
-- Random seed is used to initialize a pseudorandom number generator.
+- Random seed is used to initialize a pseudorandom number generator (Bethard 2022).
 - The number sequence completely determined by the seed.
 - Therefore, if later initialized with same seed it will produce same number.
 - This allows for the graph to be reproducible.
@@ -65,3 +68,7 @@ https://github.com/deepminer142/logistic_growth/tree/main
 
 ### d.
 ### e.
+
+## References 
+1. Bethard, S. (2022) ‘We need to talk about random seeds  ’, IACAPAP ArXiv [Preprint]. doi:10.48550/arXiv.2210.13393.
+2. Mörters, P. and Peres, Y. (2001) Brownian motion [Preprint]. doi:10.1017/cbo9780511750489. 
