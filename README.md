@@ -39,12 +39,11 @@ https://github.com/deepminer142/logistic_growth/tree/main
 - To make a reproducible stimulation of Brownian motion I have set seed to 123
 ![Reproducible stimulation](random_walk_comparison.png)
 
-### d. 
-- Edit made in code                    
+### d.                 
 ![Screenshot 2024-11-15 at 10 29 22](https://github.com/user-attachments/assets/ffcb323e-6eec-4ddd-9cc8-0d0836d461be)
 
 ### Extended
-### Brownian motion and Biology
+### Brownian motion and biology
 - Brownian motion is essentially the random motion of particles in liquid or gas medium. It is a passive motion of diffusion of particles. 
 - This is applicable to biological systems in its simplest form, for example, when botanist Robert Brown first discovered it whilst observing the erratic motion of small pollen grains (Ebeling and Schweitzer, 2003).
 - A key example of this is during morphogenesis in development. A gradient of morphogens forms during early development to programme different cell types in distinct spatial order, for example giving rise to vertebrate limb development (Ebeling and Schweitzer, 2003).
@@ -57,7 +56,7 @@ https://github.com/deepminer142/logistic_growth/tree/main
 - I adapted the code from (Sanderson, 2024) to look at random walks using uniform, normal and exponential distribution. 
 - I found that the normal one shows more fluctuations (than uniform) in both directions, because it produces balanced steps around a mean of zero.
 - In contrast, the exponential one moves upwards dramatically as exponential distributions are positive.
-![Reproducible stimulation using different distributions](random_walk_distributions.png)
+![Reproducible stimulation using different distributions](random_walk_different_distributions.png)
 
 ## Question 5
 ### a. 
