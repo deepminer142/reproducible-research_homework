@@ -37,11 +37,10 @@ https://github.com/deepminer142/logistic_growth/tree/main
 
 ### c. 
 - To make a reproducible stimulation of Brownian motion I have set seed to 123
-- ![Reproducible stimulation](random_walk_comparison.png)
-- 
-- 
+![Reproducible stimulation](random_walk_comparison.png)
 
 ### d. 
+![Screenshot 2024-11-15 at 10 29 22](https://github.com/user-attachments/assets/ffcb323e-6eec-4ddd-9cc8-0d0836d461be)
 
 ### Extended
 ![Reproducible stimulation using different distributions](random_walk_distributions.png)
