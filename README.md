@@ -68,7 +68,7 @@ https://github.com/deepminer142/logistic_growth/tree/main
 - This coverts non-linear relationship into a linear one and so you can fit a linear regression model.
 
 ![Original data from (Cui et al 2014)](virion_volume_vs_genome_length.png)
-![Transformed data from (Cui et al 2014) fitted with a regression line](log_transformed_virion_volume_vs_genome_length.png)
+![Transformed data from (Cui et al 2014)](log_transformed_virion_volume_vs_genome_length.png)
 
 ### c. 
 - Intercept = 7.0748
@@ -85,8 +85,12 @@ https://github.com/deepminer142/logistic_growth/tree/main
 - I have the **same values** for both the exponent and scaling factor
 
 ### d.
-- Code to reproduce 
+- Code to reproduce
+https://github.com/deepminer142/reproducible-research_homework/blob/a2efb8a86e3b9a1c4ac05bd33f03bb9c9518a13b/Question%205_d_e.R#L1-L22
+![Replicated graph (Cui et al 2014)](volume_length_comparison.png)
+
 ### e.
+- Code to estimate volume of a 300 kb dsDNA virus 
 
 ## References 
 1. Bethard, S. (2022) ‘We need to talk about random seeds  ’, IACAPAP ArXiv [Preprint]. doi:10.48550/arXiv.2210.13393.
