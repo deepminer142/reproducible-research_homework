@@ -40,9 +40,23 @@ https://github.com/deepminer142/logistic_growth/tree/main
 ![Reproducible stimulation](random_walk_comparison.png)
 
 ### d. 
+- Edit made in code                    
 ![Screenshot 2024-11-15 at 10 29 22](https://github.com/user-attachments/assets/ffcb323e-6eec-4ddd-9cc8-0d0836d461be)
 
 ### Extended
+### Brownian motion and Biology
+- Brownian motion is essentially the random motion of particles in liquid or gas medium. It is a passive motion of diffusion of particles. 
+- This is applicable to biological systems in its simplest form, for example, when botanist Robert Brown first discovered it whilst observing the erratic motion of small pollen grains (Ebeling and Schweitzer, 2003).
+- A key example of this is during morphogenesis in development. A gradient of morphogens forms during early development to programme different cell types in distinct spatial order, for example giving rise to vertebrate limb development (Ebeling and Schweitzer, 2003).
+- Another example is during protein sorting, specifically in post-translation protein translocation. The precursor moves back and forth by Brownian motion in the translocation channels. Then mt-Hsp70 binds trapping the segment in the matrix. Step-wise binding promotes further import until the precursor is completely transported into the matrix (Fanner and Meijer, 1995).
+- These two examples highlight the application of using Brownian motion to understand biological systems.
+  
+### Extending the random walk
+- In the previous random walk I used a uniform distribution.
+- I was curious to see what happens to the walk when I use other types of distribution.
+- I adapted the code from (Sanderson, 2024) to look at random walks using uniform, normal and exponential distribution. 
+- I found that the normal one shows more fluctuations (than uniform) in both directions, because it produces balanced steps around a mean of zero.
+- In contrast, the exponential one moves upwards dramatically as exponential distributions are positive.
 ![Reproducible stimulation using different distributions](random_walk_distributions.png)
 
 ## Question 5
@@ -76,4 +90,7 @@ https://github.com/deepminer142/logistic_growth/tree/main
 
 ## References 
 1. Bethard, S. (2022) ‘We need to talk about random seeds  ’, IACAPAP ArXiv [Preprint]. doi:10.48550/arXiv.2210.13393.
-2. Mörters, P. and Peres, Y. (2001) Brownian motion [Preprint]. doi:10.1017/cbo9780511750489. 
+2. Ebeling, W. and Schweitzer, F. (2003) ‘Self-Organization, Active Brownian Dynamics, and Biological Applications’, Nova Acta Leopoldina NF, 88(332), pp. 169–188. doi:10.48550/arXiv.cond-mat/0211606. 
+3. Fanner, N.P. and Meijer, M. (1995) ‘Protein sorting: Pulling in the proteins’, Current Biology, 5(2), pp. 132–135. doi:10.1016/s0960-9822(95)00033-9. 
+4. Mörters, P. and Peres, Y. (2001) Brownian motion [Preprint]. doi:10.1017/cbo9780511750489.
+5. Steven P. Sanderson II, M. (2024) Exploring random walks with tidydensity in R, Steve’s Data Tips and Tricks. Available at: https://www.spsanderson.com/steveondata/posts/2024-07-11/ (Accessed: 15 November 2024). 
