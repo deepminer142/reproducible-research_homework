@@ -91,8 +91,8 @@ https://github.com/deepminer142/reproducible-research_homework/blob/a2efb8a86e3b
 
 ### e.
 - To estimate volume of a 300 kb dsDNA virus use: Virion Volume = 1181.807 × (Genome Length)<sup>1.5152</sup>
-- Where genome length = 300
-- Therefore, volume = 11972649
+- Where genome length = 300 kb
+- Therefore, volume = 11972649 nmxnmxnm
 
 ## References 
 1. Bethard, S. (2022) ‘We need to talk about random seeds  ’, IACAPAP ArXiv [Preprint]. doi:10.48550/arXiv.2210.13393.
