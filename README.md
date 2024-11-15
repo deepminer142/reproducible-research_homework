@@ -68,7 +68,7 @@ https://github.com/deepminer142/logistic_growth/tree/main
 - This coverts non-linear relationship into a linear one and so you can fit a linear regression model.
 
 ![Original data from (Cui et al 2014)](virion_volume_vs_genome_length.png)
-![Transformed data from (Cui et al 2014) fitted with a regression line](log_transformed_virion_volume_vs_genome_length_with_regression.png)
+![Transformed data from (Cui et al 2014) fitted with a regression line](log_transformed_virion_volume_vs_genome_length.png)
 
 ### c. 
 - Intercept = 7.0748
@@ -85,6 +85,7 @@ https://github.com/deepminer142/logistic_growth/tree/main
 - I have the **same values** for both the exponent and scaling factor
 
 ### d.
+- Code to reproduce 
 ### e.
 
 ## References 
