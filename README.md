@@ -5,21 +5,25 @@
 https://github.com/deepminer142/logistic_growth/tree/main
 
 ## Question 4
-- The script given produces a two panelled graph showing two indepedent, a two-dimensional random walks in space.
-- The x axis consits of the x-coordinates and the y axis conists of the y-coorindates.
-- The left hand graph has a greater range of x-cooridnates than the right hand.
-- While the right hand graph has a greater range of y-cooridnates than the left hand.
-- Both walks start at (0, 0), the root which has been set in the script, therefore, at time = 1, the position is (x = 0, y = 0).
-- Then the walk moves at each time step to another vertex.
-- In an unweighted random walk, the vertex of the walk is chosen uniformly at random among the neighbours.
-- The walk takes 500 number of steps with each step 0.25 units in size.
-- The gradient of the line from dark to light blue represents and increase in number of steps and hence time.
-- The walk moves next step in a random angle. The random angle is generated from a uniform distribution between 0 and 2π.
-- The new x and y for each step is based on the previous position and the random angle, where cos(angle) x h = Δx and sin(angle) x h = Δy
-- When you re-run the code no two graphs are the same because of the randomness of angle.
-- It is a stochastic process.
-- The walk's path show clusters then spreading. This pattern may be because short movements in random directions accumulate in certain areas, causing these local clusters.
-- This is expected observation for Brownian motion which is a continuous time stochastic process (Mörters and Peres, 2001)
+### a.
+This script produces a two-paneled graph showing two independent two-dimensional random walks in space.
+- The x-axis represents the x-coordinates, and the y-axis represents the y-coordinates.
+- The graph on the left has a greater range of x-coordinates than the one on the right.
+- Conversely, the graph on the right has a greater range of y-coordinates than the one on the left.
+- Both walks start at x = 0, y = 0, the root, which has been set in the script. Therefore, at time t = 1, the position is: x = 0, y = 0
+- In an unweighted random walk, the vertex of the walk is chosen uniformly at random from among its neighbors.
+- The walk takes 500 steps, with each step being 0.25 units in size.
+- The gradient of the line, from dark to light blue, represents an increase in the number of steps and, hence, the passage of time.
+- The walk moves to the next step at a random angle. This random angle is generated from a uniform distribution between 0 and 2π.
+- The new x and y coordinates for each step are based on the previous position and the random angle, where:
+
+$$
+\Delta x = \cos(\text{angle}) \times h, \quad \Delta y = \sin(\text{angle}) \times h
+$$
+
+- When you re-run the code, no two graphs are identical because of the randomness of the angle. This makes it a stochastic process.
+- The walk's path shows clusters and spreading. This pattern may occur because short movements in random directions accumulate in certain areas, causing these local clusters.
+- This behavior is expected for Brownian motion, which is a continuous-time stochastic process (Mörters and Peres, 2001).
 
 ### b. 
 - Random seed is used to initialize a pseudorandom number generator (Bethard 2022).
@@ -58,8 +62,19 @@ https://github.com/deepminer142/logistic_growth/tree/main
 - Rows = 33  dsDNA virsues
 
 ### b. 
-- To test the allometric relationship ( V = βL<sup>α</sup> ) between virion volume and genome length I need to transform to log scale (log-log transformation).
-- This coverts non-linear relationship into a linear one (ln(V) = ln(β) + αln(L))
+- To test the allometric relationship:
+
+$$
+V = \beta L^{\alpha}
+$$ 
+
+- Between virion volume and genome length I need to transform to log scale (log-log transformation).
+- This coverts non-linear relationship into a linear one:
+
+$$
+\ln(V) = \ln(\beta) + \alpha \ln(L)
+$$
+
 - Therefore, I can fit a linear regression model (y = mx + c)
   
 ![Original data from (Cui et al 2014)](virion_volume_vs_genome_length.png)
@@ -68,7 +83,7 @@ https://github.com/deepminer142/logistic_growth/tree/main
 ### c. 
 The model output:
 - α = 1.5152
-- ln(β) = 7.0748, so β = exp10<sup>7.0748</sup> = 1181.807
+- ln(β) = 7.0748, so β = exp<sup>7.0748</sup> = 1181.807
 
 - The p-value for the intercept = 2.28×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant.
 - The p-value for α = 6.44×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant.
@@ -84,11 +99,32 @@ https://github.com/deepminer142/reproducible-research_homework/blob/a2efb8a86e3b
 ![Replicated graph (Cui et al 2014)](volume_length_comparison.png)
 
 ### e.
-- As I have fitted the data to the linear model: ln(V) = ln(β) + αln(L)
-- Now I subsitute the known values in: ln(V) = 7.0748 + 1.5152 x ln(L)
-- To estimate volume (V) for a virus with a genome length (L) of 300 kb: ln(V) = 7.0748 + 1.5152 x ln(300)
-- ln(V) = 15.7172
-- **V = 6,697,006.58**
+- As I have fitted the data to the linear model:
+
+$$
+\ln(V) = \ln(\beta) + \alpha \ln(L)
+$$
+
+- Now I subsitute the known values in:
+
+$$
+\ln(V) = 7.0748 + 1.5152 * \ln(L)
+$$
+
+- To estimate volume (V) for a virus with a genome length (L) of 300 kb:
+
+$$
+\ln(V) = 7.0748 + 1.5152 * \ln(300)
+$$
+
+$$
+\ln(V) = 15.7172
+$$
+
+$$
+**V = 6,697,006.58**
+$$
+
 
 ## References 
 1. Bethard, S. (2022) ‘We need to talk about random seeds  ’, IACAPAP ArXiv [Preprint]. doi:10.48550/arXiv.2210.13393.
