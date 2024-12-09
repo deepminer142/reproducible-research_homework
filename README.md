@@ -5,23 +5,17 @@
 https://github.com/deepminer142/logistic_growth/tree/main
 
 ## Question 4
-### a. 
-#### Looking at the code
-- random_walk function simulates a two-dimensional random walk in space. 
-- random_walk takes n_steps (the number of steps the random walk will take).
-- random_walk takes h (here 0.25 units) size steps.
-- The root of the walk is (0, 0).
-- Therefore, at time = 1, the position is (x = 0, y = 0).
-- random_walk moves next step in a random angle.
-- Random angle is generated from a uniform distribution between 0 and 2π.
-- The new x and y for each step is based on the previous position and the random angle.
-- cos(angle) x h = Δx
-- sin(angle) x h = Δy
-
-#### Looking at the graph
-- All walks start at (0, 0), the root I set.
-- Then the walk move at each time step to another vertex.
+- The script given produces a two panelled graph showing two indepedent, a two-dimensional random walks in space.
+- The x axis consits of the x-coordinates and the y axis conists of the y-coorindates.
+- The left hand graph has a greater range of x-cooridnates than the right hand.
+- While the right hand graph has a greater range of y-cooridnates than the left hand.
+- Both walks start at (0, 0), the root which has been set in the script, therefore, at time = 1, the position is (x = 0, y = 0).
+- Then the walk moves at each time step to another vertex.
 - In an unweighted random walk, the vertex of the walk is chosen uniformly at random among the neighbours.
+- The walk takes 500 number of steps with each step 0.25 units in size.
+- The gradient of the line from dark to light blue represents and increase in number of steps and hence time.
+- The walk moves next step in a random angle. The random angle is generated from a uniform distribution between 0 and 2π.
+- The new x and y for each step is based on the previous position and the random angle, where cos(angle) x h = Δx and sin(angle) x h = Δy
 - When you re-run the code no two graphs are the same because of the randomness of angle.
 - It is a stochastic process.
 - The walk's path show clusters then spreading. This pattern may be because short movements in random directions accumulate in certain areas, causing these local clusters.
@@ -66,25 +60,23 @@ https://github.com/deepminer142/logistic_growth/tree/main
 ### b. 
 - To test the allometric relationship ( V = βL<sup>α</sup> ) between virion volume and genome length I need to transform to log scale (log-log transformation).
 - This coverts non-linear relationship into a linear one (ln(V) = ln(β) + αln(L))
-- Therefore, you can fit a linear regression model ( y = mx + c)
+- Therefore, I can fit a linear regression model (y = mx + c)
   
-
 ![Original data from (Cui et al 2014)](virion_volume_vs_genome_length.png)
 ![Transformed data from (Cui et al 2014)](log_transformed_virion_volume_vs_genome_length.png)
 
 ### c. 
-- Intercept = 7.0748
-- Scaling factor (alpha) = exp(7.0748) = **1181.807 (95% CI)**
-- Exponent (Slope) (β) = **1.5152 (95% CI)**
-- This means volume increases by the 1.5152 power of length.
-- Allometric relationship can be expressed as Virion Volume = 1181.807 × (Genome Length)<sup>1.5152</sup>
-- The p-value for the intercept (7.0748) = 2.28×10<sup>-10</sup>
-- The p-value for the genome length coefficient = 2.28×10<sup>-10</sup>
-- 2.28×10<sup>-10</sup> and 2.28×10<sup>-10</sup> are below significance level (0.05)
-- Therefore, these **coefficients are statistically significant**.
-- The exponent in paper = 1.52 (1.16-1.87) (95% CI)
-- Scaling factor in paper = 1,182 (246–5,675) (95% CI)
-- I have the **same values** for both the exponent and scaling factor
+The model output:
+- α = 1.5152
+- ln(β) = 7.0748, so β = exp10<sup>7.0748</sup> = 1181.807
+
+- The p-value for the intercept = 2.28×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant.
+- The p-value for α = 6.44×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant.
+  
+The paper values:
+- α = 1.52 (1.16-1.87) 
+- β = 1,182 (246–5,675) 
+- Therefore, I have the **same values** for both the exponent and scaling factor
 
 ### d.
 - Code to reproduce
@@ -92,9 +84,11 @@ https://github.com/deepminer142/reproducible-research_homework/blob/a2efb8a86e3b
 ![Replicated graph (Cui et al 2014)](volume_length_comparison.png)
 
 ### e.
-- To estimate volume of a 300 kb dsDNA virus use: Virion Volume = 1181.807 × (Genome Length)<sup>1.5152</sup>
-- Where genome length = 300 kb
-- Therefore, volume = 11972649 nmxnmxnm
+- As I have fitted the data to the linear model: ln(V) = ln(β) + αln(L)
+- Now I subsitute the known values in: ln(V) = 7.0748 + 1.5152 x ln(L)
+- To estimate volume (V) for a virus with a genome length (L) of 300 kb: ln(V) = 7.0748 + 1.5152 x ln(300)
+- ln(V) = 15.7172
+- **V = 6,697,006.58**
 
 ## References 
 1. Bethard, S. (2022) ‘We need to talk about random seeds  ’, IACAPAP ArXiv [Preprint]. doi:10.48550/arXiv.2210.13393.
