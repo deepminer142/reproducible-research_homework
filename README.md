@@ -60,12 +60,14 @@ https://github.com/deepminer142/logistic_growth/tree/main
 
 ## Question 5
 ### a. 
-- Rows = 13 (Family, Genus, Type species, GenBank accession no, Envelope, Virion type, T, Virion diameter (nm), Virion length (nm), Virion volume (nm×nm×nm), Molecule, Genome length (kb), Protein no)
-- Columns = 33  dsDNA virsues
+- Columns = 13 (Family, Genus, Type species, GenBank accession no, Envelope, Virion type, T, Virion diameter (nm), Virion length (nm), Virion volume (nm×nm×nm), Molecule, Genome length (kb), Protein no)
+- Rows = 33  dsDNA virsues
 
 ### b. 
-- To testing the allometric relationship between virion volume and genome length I need to transform to log scale (log-log transformation).
-- This coverts non-linear relationship into a linear one and so you can fit a linear regression model.
+- To test the allometric relationship ( V = βL<sup>α</sup> ) between virion volume and genome length I need to transform to log scale (log-log transformation).
+- This coverts non-linear relationship into a linear one (ln(V) = ln(β) + αln(L))
+- Therefore, you can fit a linear regression model ( y = mx + c)
+  
 
 ![Original data from (Cui et al 2014)](virion_volume_vs_genome_length.png)
 ![Transformed data from (Cui et al 2014)](log_transformed_virion_volume_vs_genome_length.png)
