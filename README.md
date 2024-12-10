@@ -85,12 +85,12 @@ The model output:
 - α = 1.5152
 - ln(β) = 7.0748, so β = exp<sup>7.0748</sup> = 1181.807
 
-- The p-value for the intercept = 2.28×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant.
-- The p-value for α = 6.44×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant.
+- The p-value for the intercept = 2.28×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant at a level of p < 0.001.
+- The p-value for α = 6.44×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant at a level of p < 0.001.
   
 The paper values:
-- α = 1.52 (1.16-1.87) 
-- β = 1,182 (246–5,675) 
+- α = 1.52 (1.16-1.87) (95% CI)
+- β = 1,182 (246–5,675) (95% CI)
 - Therefore, I have the **same values** for both the exponent and scaling factor
 
 ### d.
@@ -108,13 +108,13 @@ $$
 - Now I subsitute the known values in:
 
 $$
-\ln(V) = 7.0748 + 1.5152 * \ln(L)
+\ln(V) = 7.0748 + 1.5152 \times \ln(L)
 $$
 
 - To estimate volume (V) for a virus with a genome length (L) of 300 kb:
 
 $$
-\ln(V) = 7.0748 + 1.5152 * \ln(300)
+\ln(V) = 7.0748 + 1.5152 \times \ln(300)
 $$
 
 $$
