@@ -4,9 +4,6 @@
 library(ggplot2)
 library(gridExtra)
 
-# Set seed for reproducibility
-set.seed(123)
-
 random_walk  <- function (n_steps) {
   
   df <- data.frame(x = rep(NA, n_steps), y = rep(NA, n_steps), time = 1:n_steps)
@@ -55,7 +52,4 @@ plot2 <- ggplot(aes(x = x, y = y), data = data2) +
   
   ylab("y-coordinate")
 
-combined_plot <- grid.arrange(plot1, plot2, ncol = 2)
-
-# Save the plot as a PNG file
-ggsave("random_walk_comparison.png", plot = combined_plot, width = 12, height = 6, dpi = 300)
+grid.arrange(plot1, plot2, ncol=2)
