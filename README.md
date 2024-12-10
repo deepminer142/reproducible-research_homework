@@ -25,8 +25,6 @@ A random seed is used to initialize a pseudorandom number generator (Bethard, 20
 
 
 ### c. 
-To make a reproducible stimulation of Brownian motion I have set seed to 123
-
 *Code showing two reproducible independent random walks in two-dimensional space*
 ```{r}
 random_walk  <- function (n_steps, seed = NULL) {
@@ -107,40 +105,58 @@ In the previous random walk, I used a uniform distribution. I was curious to see
 
 ## Question 5
 ### a. 
-- Columns = 13 (Family, Genus, Type species, GenBank accession no, Envelope, Virion type, T, Virion diameter (nm), Virion length (nm), Virion volume (nm×nm×nm), Molecule, Genome length (kb), Protein no)
-- Rows = 33  dsDNA virsues
+Columns = 13 (Family, Genus, Type species, GenBank accession no, Envelope, Virion type, T, Virion diameter (nm), Virion length (nm), Virion volume (nm×nm×nm), Molecule, Genome length (kb), Protein no)
+
+Rows = 33  dsDNA virsues
 
 ### b. 
-- To test the allometric relationship:
+To test the allometric relationship:
 
 $$
 V = \beta L^{\alpha}
 $$ 
 
-- Between virion volume and genome length I need to transform to log scale (log-log transformation).
-- This coverts non-linear relationship into a linear one:
+Between virion volume and genome length I need to transform to log scale (log-log transformation).
+
+*Code to show log transformation performed*
+```{r}
+log_transform <- data %>%
+  mutate(genome_length_log = log(Genome.length..kb.),
+         virion_volume_log = log(Virion.volume..nm.nm.nm.))
+```
+
+*Graph to show the log transformation of genome length vs virion volume*
+![](https://github.com/deepminer142/reproducible-research_homework/blob/main/PNGs/log_transformed_virion_volume_vs_genome_length.png)
+
+This coverts non-linear relationship into a linear one:
 
 $$
 \ln(V) = \ln(\beta) + \alpha \ln(L)
 $$
 
-- Therefore, I can fit a linear regression model (y = mx + c)
-  
-![Original data from (Cui et al 2014)](virion_volume_vs_genome_length.png)
-![Transformed data from (Cui et al 2014)](log_transformed_virion_volume_vs_genome_length.png)
-
+Therefore, I can fit a linear regression model (y = mx + c)
+ 
 ### c. 
-The model output:
-- α = 1.5152
-- ln(β) = 7.0748, so β = exp<sup>7.0748</sup> = 1181.807
 
-- The p-value for the intercept = 2.28×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant at a level of p < 0.001.
-- The p-value for α = 6.44×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant at a level of p < 0.001.
+*The model output:*
+
+<img width="487" alt="Screenshot 2024-12-10 at 17 17 16" src="https://github.com/user-attachments/assets/d135b6e8-443c-4531-8659-c26a44548ed3">
+
+#### Using values from the model output
+α = 1.5152
+
+ln(β) = 7.0748, so β = exp<sup>7.0748</sup> = 1181.807
+
+The p-value for the intercept = 2.28×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant at a level of p < 0.001.
+
+The p-value for α = 6.44×10<sup>-10</sup>, which is <0.001, therefore it is statistically significant at a level of p < 0.001.
   
-The paper values:
-- α = 1.52 (1.16-1.87) (95% CI)
-- β = 1,182 (246–5,675) (95% CI)
-- Therefore, I have the **same values** for both the exponent and scaling factor
+#### The paper values:
+α = 1.52 (1.16-1.87) (95% CI)
+
+β = 1,182 (246–5,675) (95% CI)
+
+Therefore, I have the **same values** for both the exponent and scaling factor
 
 ### d.
 
@@ -170,22 +186,23 @@ print(volume_length_comparison_plot)
 # Step 6: Save plot as PNG
 ggsave("volume_length_comparison.png", plot = volume_length_comparison_plot, width = 8, height = 6, dpi = 300)
 ```
-
+*Recreated graph from (Cui et al., 2014)*
+![](https://github.com/deepminer142/reproducible-research_homework/blob/main/PNGs/volume_length_comparison.png)
 
 ### e.
-- As I have fitted the data to the linear model:
+As I have fitted the data to the linear model:
 
 $$
 \ln(V) = \ln(\beta) + \alpha \ln(L)
 $$
 
-- Now I subsitute the known values in:
+Now I subsitute the known values in:
 
 $$
 \ln(V) = 7.0748 + 1.5152 \times \ln(L)
 $$
 
-- To estimate volume (V) for a virus with a genome length (L) of 300 kb:
+To estimate volume (V) for a virus with a genome length (L) of 300 kb:
 
 $$
 \ln(V) = 7.0748 + 1.5152 \times \ln(300)
