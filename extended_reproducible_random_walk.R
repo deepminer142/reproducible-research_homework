@@ -1,41 +1,78 @@
-# Step 1: Load Libraries
+# Load Libraries
 suppressPackageStartupMessages({
   library(ggplot2)
   library(dplyr)
+  library(gridExtra)
   library(TidyDensity)
 })
 
-# Step 2: Set a Seed for Reproducibility
-set.seed(1000)
+# Set a Seed for Reproducibility
+set.seed(123)
 
-# Step 3: Generate Random Walks for Different Distributions
+# Random Walk Function with X, Y Coordinates and Time Gradient
+random_walk <- function(n_steps) {
+  df <- data.frame(x = rep(NA, n_steps), y = rep(NA, n_steps), time = 1:n_steps)
+  df[1, ] <- c(0, 0, 1)
+  
+  for (i in 2:n_steps) {
+    h <- 0.25
+    angle <- runif(1, min = 0, max = 2 * pi)
+    df[i, 1] <- df[i - 1, 1] + cos(angle) * h
+    df[i, 2] <- df[i - 1, 2] + sin(angle) * h
+    df[i, 3] <- i
+  }
+  
+  return(df)
+}
+
+# Generate Data for Different Distributions
 df <- bind_rows(
-  tidy_uniform(.num_sims = 25, .n = 50, .min = -1, .max = 1) %>%
-    tidy_random_walk(.value_type = "cum_sum") %>%
-    mutate(type = "Uniform"),
+  tidy_uniform(.num_sims = 1, .n = 500, .min = -1, .max = 1) %>%
+    mutate(
+      angle = runif(n(), min = 0, max = 2 * pi),
+      step_size = 0.25,
+      x = cumsum(cos(angle) * step_size),
+      y = cumsum(sin(angle) * step_size),
+      time = row_number(),
+      type = "Uniform"
+    ),
   
-  tidy_exponential(.num_sims = 25, .n = 50, .rate = 1) %>%
-    tidy_random_walk(.value_type = "cum_sum") %>%
-    mutate(type = "Exponential"),
+  tidy_exponential(.num_sims = 1, .n = 500, .rate = 1) %>%
+    mutate(
+      angle = runif(n(), min = 0, max = 2 * pi),
+      step_size = 0.25,
+      x = cumsum(cos(angle) * step_size),
+      y = cumsum(sin(angle) * step_size),
+      time = row_number(),
+      type = "Exponential"
+    ),
   
-  tidy_normal(.num_sims = 25, .n = 50, .mean = 0, .sd = 1) %>%
-    tidy_random_walk(.value_type = "cum_sum") %>%
-    mutate(type = "Normal")
-) %>%
-  select(simulation = sim_number, step = x, value = random_walk_value, type)
+  tidy_normal(.num_sims = 1, .n = 500, .mean = 0, .sd = 1) %>%
+    mutate(
+      angle = runif(n(), min = 0, max = 2 * pi),
+      step_size = 0.25,
+      x = cumsum(cos(angle) * step_size),
+      y = cumsum(sin(angle) * step_size),
+      time = row_number(),
+      type = "Normal"
+    )
+)
 
-# Step 4: Create the Plot Object
-plot <- ggplot(df, aes(x = step, y = value, color = type, group = interaction(type, simulation))) +
-  geom_line(alpha = 0.4) +
-  scale_color_manual(values = c("Uniform" = "#1f78b4", "Exponential" = "#33a02c", "Normal" = "#6a3d9a")) +
-  facet_wrap(~ type) +
-  labs(
-    title = "Random Walks with Different Distributions",
-    x = "Time Step",
-    y = "Random Walk Value"
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(legend.position = "none")
+# Create Plots for Each Distribution
+plots <- df %>%
+  split(.$type) %>%
+  purrr::map(~ {
+    ggplot(.x, aes(x = x, y = y, color = time)) +
+      geom_path() +
+      labs(
+        title = paste("Random Walk:", unique(.x$type)),
+        x = "X-Coordinate",
+        y = "Y-Coordinate"
+      ) +
+      theme_bw() +
+      scale_color_gradient(low = "lightblue", high = "darkblue")
+  })
 
-# Step 5: Save the Plot as a PNG File
-ggsave(filename = "random_walk_different_distributions.png", plot = plot, width = 10, height = 6, dpi = 300)
+# Arrange and Save the Combined Plot
+combined_plot <- grid.arrange(grobs = plots, ncol = 3)
+ggsave("random_walk_comparison_combined.png", plot = combined_plot, width = 15, height = 6, dpi = 300)
