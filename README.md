@@ -6,55 +6,104 @@ https://github.com/deepminer142/logistic_growth/tree/main
 
 ## Question 4
 ### a.
-This script produces a two-paneled graph showing two independent two-dimensional random walks in space.
-- The x-axis represents the x-coordinates, and the y-axis represents the y-coordinates.
-- The graph on the left has a greater range of x-coordinates than the one on the right.
-- Conversely, the graph on the right has a greater range of y-coordinates than the one on the left.
-- Both walks start at x = 0, y = 0, the root, which has been set in the script. Therefore, at time t = 1, the position is: x = 0, y = 0
-- In an unweighted random walk, the vertex of the walk is chosen uniformly at random from among its neighbors.
-- The walk takes 500 steps, with each step being 0.25 units in size.
-- The gradient of the line, from dark to light blue, represents an increase in the number of steps and, hence, the passage of time.
-- The walk moves to the next step at a random angle. This random angle is generated from a uniform distribution between 0 and 2π.
-- The new x and y coordinates for each step are based on the previous position and the random angle, where:
+*Two-paneled graph showing two independent random walks in two-dimensional space*
+
+<p style="color:red; text-align:center;">
+  <img src="https://github.com/user-attachments/assets/7f705b3f-0ff5-49cb-a055-61e9fb4060bc" alt="Random Walk Graph" width="596">
+</p>
+
+This script produces a two-paneled graph showing two independent random walks in two-dimensional space. The x-axis represents the x-coordinates, and the y-axis represents the y-coordinates. The graph on the left displays a greater range of x-coordinates (ranging from -4 to 3) and y-coordinates (ranging from -7 to 0), while the graph on the right has smaller range of range of x-coordinates (ranging from -2 to 3) and y-coordinates (ranging from -5 to 0). Both walks begin at the origin (x = 0, y = 0), referred to as the root, which is explicitly set in the script. At time t = 1, the starting position for is x = 0, y = 0. In an unweighted random walk, the vertex of the walk is chosen uniformly at random from among its neighbors. Each walk consists of 500 steps, with each step being 0.25 units in size. The gradient of the line, transitioning from dark to light blue, represents an increase in the number of steps and, consequently, the passage of time. The walk progresses to the next step at a random angle, generated from a uniform distribution between 0 and 2π. The new x and y coordinates for each step are calculated based on the previous position and the random angle, using the formulas:
 
 $$
 \Delta x = \cos(\text{angle}) \times h, \quad \Delta y = \sin(\text{angle}) \times h
 $$
 
-- When you re-run the code, no two graphs are identical because of the randomness of the angle. This makes it a stochastic process.
-- The walk's path shows clusters and spreading. This pattern may occur because short movements in random directions accumulate in certain areas, causing these local clusters.
-- This behavior is expected for Brownian motion, which is a continuous-time stochastic process (Mörters and Peres, 2001).
+Due to the randomness of the angle, re-running the code produces unique graphs each time, making it a stochastic process. The paths of the walks exhibit both clustering and spreading, likely caused by short movements in random directions accumulating in specific areas, forming local clusters. This behavior aligns with expectations for Brownian motion, a continuous-time stochastic process (Mörters and Peres, 2001).
 
 ### b. 
-- Random seed is used to initialize a pseudorandom number generator (Bethard 2022).
-- The number sequence completely determined by the seed.
-- Therefore, if later initialized with same seed it will produce same number.
-- This allows for the graph to be reproducible.
-- Setting a random seed allows you to produce the same "random" result every time you rerun the code with the same seed.
-- This is essential to produce reprodicble research.
+A random seed is used to initialize a pseudorandom number generator (Bethard, 2022). The number sequence is completely determined by the seed, meaning that if the generator is later initialized with the same seed, it will produce the same sequence of numbers. This ensures that the graph is reproducible. By setting a random seed, you can consistently produce the same "random" results each time you rerun the code with the same seed. This is essential for generating reproducible research, as it allows others to replicate the results exactly.
+
 
 ### c. 
-- To make a reproducible stimulation of Brownian motion I have set seed to 123
-![Reproducible stimulation](random_walk_comparison.png)
+To make a reproducible stimulation of Brownian motion I have set seed to 123
 
-### d.                 
-![Screenshot 2024-11-15 at 10 29 22](https://github.com/user-attachments/assets/ffcb323e-6eec-4ddd-9cc8-0d0836d461be)
+*Code showing two reproducible independent random walks in two-dimensional space*
+```{r}
+random_walk  <- function (n_steps, seed = NULL) {
+set.seed(seed)
+  df <- data.frame(x = rep(NA, n_steps), y = rep(NA, n_steps), time = 1:n_steps)
+  
+  df[1,] <- c(0,0,1)
+  
+  for (i in 2:n_steps) {
+    
+    h <- 0.25
+    
+    angle <- runif(1, min = 0, max = 2*pi)
+    
+    df[i,1] <- df[i-1,1] + cos(angle)*h
+    
+    df[i,2] <- df[i-1,2] + sin(angle)*h
+    
+    df[i,3] <- i
+    
+  }
+  
+  return(df)
+  
+}
+
+
+data1 <- random_walk(500, seed = 123)
+plot1 <- ggplot(aes(x = x, y = y), data = data1) +
+  
+  geom_path(aes(colour = time)) +
+  
+  theme_bw() +
+  
+  xlab("x-coordinate") +
+  
+  ylab("y-coordinate")
+
+
+data2 <- random_walk(500, seed = 132)
+plot2 <- ggplot(aes(x = x, y = y), data = data2) +
+  
+  geom_path(aes(colour = time)) +
+  
+  theme_bw() +
+  
+  xlab("x-coordinate") +
+  
+  ylab("y-coordinate")
+
+grid.arrange(plot1, plot2, ncol=2)
+```
+
+*Two-paneled graph showing two reproducible independent random walks in two-dimensional space*
+
+<p style="color:red; text-align:center;">
+  <img width="591" alt="Screenshot 2024-12-10 at 16 50 50" src="https://github.com/user-attachments/assets/7ede602a-6d1b-4d6c-879e-61bb3572e4fe">
+</p>
+  
+
+
+### d. 
+
+*An image to show the changes made to code to make two reproducible independent random walks in two-dimensional space*
+![Screenshot 2024-12-10 at 16 05 29](https://github.com/user-attachments/assets/4a3c7cfd-5b5e-47a5-bbc6-1721379dedf8)
+
+
 
 ### Extended
-### Brownian motion and biology
-- Brownian motion is essentially the random motion of particles in liquid or gas medium. It is a passive motion of diffusion of particles. 
-- This is applicable to biological systems in its simplest form, for example, when botanist Robert Brown first discovered it whilst observing the erratic motion of small pollen grains (Ebeling and Schweitzer, 2003).
-- A key example of this is during morphogenesis in development. A gradient of morphogens forms during early development to programme different cell types in distinct spatial order, for example giving rise to vertebrate limb development (Ebeling and Schweitzer, 2003).
-- Another example is during protein sorting, specifically in post-translation protein translocation. The precursor moves back and forth by Brownian motion in the translocation channels. Then mt-Hsp70 binds trapping the segment in the matrix. Step-wise binding promotes further import until the precursor is completely transported into the matrix (Fanner and Meijer, 1995).
-- These two examples highlight the application of using Brownian motion to understand biological systems.
+#### Brownian motion and biology
+Brownian motion is essentially the random motion of particles in liquid or gas medium. It is a passive motion of diffusion of particles. This is applicable to biological systems in its simplest form, for example, when botanist Robert Brown first discovered it whilst observing the erratic motion of small pollen grains (Ebeling and Schweitzer, 2003). A key example of this is during morphogenesis in development. A gradient of morphogens forms during early development to programme different cell types in distinct spatial order, for example giving rise to vertebrate limb development (Ebeling and Schweitzer, 2003). Another example is during protein sorting, specifically in post-translation protein translocation. The precursor moves back and forth by Brownian motion in the translocation channels. Then mt-Hsp70 binds trapping the segment in the matrix. Step-wise binding promotes further import until the precursor is completely transported into the matrix (Fanner and Meijer, 1995). These two examples highlight the application of using Brownian motion to understand biological systems.
   
-### Extending the random walk
-- In the previous random walk I used a uniform distribution.
-- I was curious to see what happens to the walk when I use other types of distribution.
-- I adapted the code from (Sanderson, 2024) to look at random walks using uniform, normal and exponential distribution. 
-- I found that the normal one shows more fluctuations (than uniform) in both directions, because it produces balanced steps around a mean of zero.
-- In contrast, the exponential one moves upwards dramatically as exponential distributions are positive.
-![Reproducible stimulation using different distributions](random_walk_different_distributions.png)
+#### Extending the random walk
+In the previous random walk, I used a uniform distribution. I was curious to see what happens to the walk when other types of distributions are used. I adapted the code from Sanderson (2024) to examine random walks generated using uniform, normal, and exponential distributions. I found that the exponential distribution produces an uneven walk due to its sudden movements. In contrast, the normal distribution results in a walk that is more evenly spread in all directions, as it produces balanced steps around a mean of zero. Finally, the uniform walk appears as discussed in Part 4a.
+
+*Reproducible stimulation using different distributions*
+![Reproducible stimulation using different distributions](random_walk_comparison_combined.png)
 
 ## Question 5
 ### a. 
@@ -94,9 +143,34 @@ The paper values:
 - Therefore, I have the **same values** for both the exponent and scaling factor
 
 ### d.
-- Code to reproduce
-https://github.com/deepminer142/reproducible-research_homework/blob/a2efb8a86e3b9a1c4ac05bd33f03bb9c9518a13b/Question%205_d_e.R#L1-L22
-![Replicated graph (Cui et al 2014)](volume_length_comparison.png)
+
+*Code to reproduce*
+
+```{r}
+# For Question 5, part d
+# Step 1: Load ggplot2 if not already loaded
+install.packages("ggplot2")
+library(ggplot2)
+
+# Step 2: Create a linear model with the log-transformed data
+virus_model <- lm(virion_volume_log ~ genome_length_log, data = log_transform)
+
+# Step 3: Plot
+volume_length_comparison_plot <- ggplot(log_transform, aes(x = genome_length_log, y = virion_volume_log))  + 
+  geom_point(color = "black") +                           
+  geom_smooth(method = "lm", color = "blue", se = TRUE) + 
+  xlab("log [Genome length (kb)]") +                      
+  ylab("log [Virion volume (nm3)]") +                    
+  theme_bw() +                                            
+  theme(text = element_text(size = 14))         
+
+# Step 5: Display plot
+print(volume_length_comparison_plot)
+
+# Step 6: Save plot as PNG
+ggsave("volume_length_comparison.png", plot = volume_length_comparison_plot, width = 8, height = 6, dpi = 300)
+```
+
 
 ### e.
 - As I have fitted the data to the linear model:
